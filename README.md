@@ -23,13 +23,23 @@ GAP.track.errors();
 //========= Cross browser event tracking using data attributes ===========
 GAP.track.element('click',document.getElementById("btn-download"));
 
-
 //========= Cross browser event tracking with custom values ===========
 GAP.track.addListener(document.getElementById("btn-download-bottom"),'click',function(){
   GAP.track.event('buttons','download','v0.0.1','1');
 
 });
 
+//========= Using jQuery and data attributes it's even easier! ===========
+$("[data-ga-category]").each(function(e){
+	GAP.track.element("click",this);
+});
+
+/****** Important: *******/
+/* Expected data attributes are:
+/* - data-ga-category (required)
+/* - data-ga-action (required) 
+/* - data-ga-label 
+/* - data-ga-value ******/
 
 ```
 
