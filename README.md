@@ -9,6 +9,9 @@ GAP autodetects the current version of analytics and provides you a easy to use 
 
 It has javascript error tracking implemented and uses the information of window.onerror event to get the exception, file and line of the error, then parses that data and triggers an event to analytics so you can automatically track javascript errors in all your pages in a really easy way.
 
+Try out the working demo here : http://makeitsolutions.com/labs/GAP/
+
+
 ## Examples
 Just be sure to include the library and your custom script at the bottom of the page (before closing the body tag)
 
