@@ -39,7 +39,7 @@
                      <ol>
                       <li>Just add the parameter UA=YOUR_GA_ACCOUNT_ID to this url and also universal=1 (if you are using universal GA) and reload the page. <br />For Example
 
-                      <a id='this_url' href=''>{{THIS_URL}}?UA=123312333-1</a></li>
+                      <a id='this_url' href=''>{{THIS_URL}}?UA=123312333-1&universal=1</a></li>
                       <li>Then login to your analytics account, go to Reports => Realtime => Events, then play with the buttons below and see the magic!</li>
                     </ol>
                 </div>
@@ -154,7 +154,7 @@
           // Twitter widgets
             !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='http://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','twitter-wjs');
 
-          document.getElementById("this_url").innerText = document.getElementById("this_url").innerText.replace("{{THIS_URL}}",location.href);
+          document.getElementById("this_url").innerText = document.getElementById("this_url").innerText.replace("{{THIS_URL}}",location.origin+location.pathname);
 
           function getUA(url) {
               var match = url.match(/.*[?&]UA=([^&]+)(&|$)/);
