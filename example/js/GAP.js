@@ -1,7 +1,6 @@
 
 var GAP = GAP || {};
 
-
 GAP.track = (function() {
 
     function _init(){
@@ -111,7 +110,6 @@ GAP.track = (function() {
     }
 
     function _page(url) {
-        //console.log(url);
         if (_version=="universal") {
           ga('send', 'pageview');
         }else{
@@ -122,6 +120,107 @@ GAP.track = (function() {
         }
     }
     
+
+    function _transaction(id,affiliation,revenue,shipping,tax,currency, items){
+
+      //Fix for non required fields
+      if(affiliation==null || affiliation==undefined){
+        var affiliation="";
+      }
+      if(shipping==null || shipping==undefined){
+        var shipping="";
+      }
+
+      if(tax==null || tax==undefined){
+        var tax="";
+      }
+
+
+      if(_version=="universal"){
+
+        if(currency==null || currency==undefined){
+          var currency="";
+        }
+
+        //REQUIRE E-COMMERCE PLUGIN
+        ga('require', 'ecommerce', 'ecommerce.js');
+
+        var transaction_data = {
+                                'id': id,                     // Transaction ID. Required.
+                                'affiliation': affiliation,   // Affiliation or store name.
+                                'revenue': revenue,               // Grand Total.
+                                'shipping': shipping,                  // Shipping.
+                                'tax': tax
+                              };
+        if(currency!=null && currency!=undefined && currency!=""){
+          transaction_data['currency'] =  currency;
+        }
+
+        ga('ecommerce:addTransaction', transaction_data);
+
+        for(var i=0;i<items.length;i++){
+          var item = items[i];
+          if(item.name==null || item.name==undefined)item.name="";
+          if(item.code==null || item.code==undefined)item.code="";
+          if(item.category==null || item.category==undefined)item.category="";
+          if(item.price==null || item.price==undefined)item.price="";
+          if(item.quantity==null || item.quantity==undefined)item.quantity="";
+
+          //ITEMS
+          ga('ecommerce:addItem', {
+            'id': item.id,                     // Transaction ID. Required.
+            'name': item.name,                // Product name. Required.
+            'sku': item.code,                // SKU/code.
+            'category': item.category,      // Category or variation.
+            'price': item.price,           // Unit price.
+            'quantity': item.quantity,    // 
+          });
+        }
+
+        ga('ecommerce:send');
+      
+      }else{
+
+          if(currency!=null && currency!=undefined && currency!=""){
+             _gaq.push(['_set', 'currencyCode', currency]);
+          }
+
+          _gaq.push(['_addTrans',
+            id,               // transaction ID - required
+            affiliation,      // affiliation or store name
+            revenue,          // total - required
+            shipping,         // tax
+            tax              // shippinng
+          ]);
+
+
+          for(var i=0;i<items.length;i++){
+            
+            var item = items[i];
+            
+            if(item.name==null || item.name==undefined)item.name="";
+            if(item.code==null || item.code==undefined)item.code="";
+            if(item.category==null || item.category==undefined)item.category="";
+            if(item.price==null || item.price==undefined)item.price="";
+            if(item.quantity==null || item.quantity==undefined)item.quantity="";
+
+            _gaq.push(['_addItem',
+              item.id,           // transaction ID - required
+              item.code,           // SKU/code - required
+              item.name,        // product name
+              item.category,   // category or variation
+              item.price,          // unit price - required
+              item.quantity               // quantity - required
+            ]);
+          }
+
+          _gaq.push(['_trackTrans']);
+      }
+      if(_debug){
+        _log("transaction created succesfully!");
+      }
+    }
+
     _init();
 
 
@@ -133,6 +232,7 @@ GAP.track = (function() {
         errors: _errors,
         social: _social,
         page: _page,
+        transaction: _transaction,
         addListener : _addListener,
         version : function(v){
             if(v)_version = v;
@@ -144,65 +244,6 @@ GAP.track = (function() {
         }
     };
 
-    
-
 }());
-
-/***** PENDING ***
-//REQUIRE E-COMMERCE PLUGIN
-ga('require', 'ecommerce', 'ecommerce.js');
-
-//TRANSACTION
-ga('ecommerce:addTransaction', {
-  'id': '1234',                     // Transaction ID. Required.
-  'affiliation': 'Acme Clothing',   // Affiliation or store name.
-  'revenue': '11.99',               // Grand Total.
-  'shipping': '5',                  // Shipping.
-  'tax': '1.29',                     // Tax.
-  'currency': 'UYP'
-});
-//ITEMS
-ga('ecommerce:addItem', {
-  'id': '1234',                     // Transaction ID. Required.
-  'name': 'Fluffy Pink Bunnies',    // Product name. Required.
-  'sku': 'DD23444',                 // SKU/code.
-  'category': 'Party Toys',         // Category or variation.
-  'price': '11.99',                 // Unit price.
-  'quantity': '1',
-  'currency': 'UYP'                   // Quantity.
-});
-ga('ecommerce:send');
-
-
-
-
-
-
- _gaq.push(['_addTrans',
-    '1234',           // transaction ID - required
-    'Acme Clothing',  // affiliation or store name
-    '11.99',          // total - required
-    '1.29',           // tax
-    '5',              // shipping
-    'San Jose',       // city
-    'California',     // state or province
-    'USA'             // country
-  ]);
-
-   // add item might be called for every item in the shopping cart
-   // where your ecommerce engine loops through each item in the cart and
-   // prints out _addItem for each
-  _gaq.push(['_addItem',
-    '1234',           // transaction ID - required
-    'DD44',           // SKU/code - required
-    'T-Shirt',        // product name
-    'Green Medium',   // category or variation
-    '11.99',          // unit price - required
-    '1'               // quantity - required
-  ]);
-  _gaq.push(['_trackTrans']); //submits transaction to the Analytics servers
-
-
-/*******************/
 
 

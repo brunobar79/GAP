@@ -202,7 +202,7 @@
           }
         </script>
 
-        <script src='js/GAP.js'></script>
+        <script src='../src/GAP.js'></script>
         <script>
             
             //Error Tracking enabled!
@@ -218,11 +218,9 @@
             });
 
 
-           GAP.track.addListener(document.getElementById("btn-error"),'click',function(){
+            GAP.track.addListener(document.getElementById("btn-error"),'click',function(){
                 my_non_defined_var / 2;
             });
-            
-           
 
         </script>
     </body>

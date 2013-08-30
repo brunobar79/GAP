@@ -9,8 +9,14 @@ GAP autodetects the current version of analytics and provides you a easy to use 
 
 It has javascript error tracking implemented and uses the information of window.onerror event to get the exception, file and line of the error, then parses that data and triggers an event to analytics so you can automatically track javascript errors in all your pages in a really easy way.
 
-Try out the working demo here : http://makeitsolutions.com/labs/GAP/
+Another cool thing is the way you can assign events to dom objects.
+For example, you can just pass the name of the event and the dom object as parameters to the GAP.track.element function if you are using data-attributes to store the content of the event params:
 
+<a href="http://somewhere.com" data-ga-category="Event-cat" data-ga-action="my action" data-ga-label="some label" data-ga-value="1">my link!</a>
+
+Also there the events are attached in a cross browser clean way so there is no need to include any external library to do this. GAP.track.addListener handles that for you
+
+Try out the working demo here : http://makeitsolutions.com/labs/GAP/
 
 ## Examples
 Just be sure to include the library and your custom script at the bottom of the page (before closing the body tag)
@@ -33,6 +39,30 @@ GAP.track.addListener(document.getElementById("btn-download-bottom"),'click',fun
 $("[data-ga-category]").each(function(e){
 	GAP.track.element("click",this);
 });
+
+//======== E-commerce transactions in just one step! ==============//
+
+	var items = [{
+                  'id':'2',
+                  'code':'XX2',
+                  'name':'prod-name',
+                  'cat-name':'products',
+                  'price':'19',
+                  'quantity':'1'
+                },
+                {
+                  'id':'3',
+                  'code':'XX3',
+                  'name':'prod-name 2',
+                  'cat-name':'products',
+                  'price':'8',
+                  'quantity':'2'
+                }];
+
+    GAP.track.transaction('111','YLD','35','','','', items );
+
+
+
 
 /****** Important: *******/
 /* Expected data attributes are:
