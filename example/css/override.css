@@ -1,0 +1,66 @@
+.btn-download {
+	border: 1px solid #214E1D !important;
+	background: #34B31C !important;
+	letter-spacing: 0.1em !important;
+	font-weight: normal;
+	cursor:pointer !important;
+}
+
+.btn-download-alt {
+	border-color: #222;
+	background: #999 !important;
+	cursor:pointer !important;
+}
+
+.site-nav a {
+	display: block;
+	color: #54B31C !important;
+	text-decoration: none;
+	text-transform: uppercase;
+}
+
+.site-nav a:hover {
+	color: #FFF !important;
+	text-decoration: none;
+}
+
+
+.star {
+	color: #54B31C !important;
+}
+
+#try-it{
+	text-align: left;
+	padding: 10px 20px;
+	font-size: 14px;
+}
+#try-it ol{
+	margin-bottom: 0px;
+	margin-top: 0px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+#try-it ol li a{
+	color: #54B31C !important;
+}
+#try-it ol li{
+	margin-bottom:10px;
+}
+#try-it h4{
+	color: #54B31C;
+	font-size: 20px;
+	margin: 0px!important;
+	margin-bottom: 15px !important;
+}
+
+.last-update{
+	font-size: 14px !important;
+}
+.cta-option{
+	margin: 1.2em .5em 0 !important;
+}
+
+footer a {
+	color: #54B31C !important;
+}
+}
