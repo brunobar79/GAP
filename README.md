@@ -29,6 +29,15 @@ GAP.track.errors();
 //========= Cross browser event tracking using data attributes ===========
 GAP.track.element('click',document.getElementById("btn-download"));
 
+
+/* Expected data attributes are:
+	- data-ga-category (required)
+ 	- data-ga-action (required) 
+ 	- data-ga-label 
+    - data-ga-value 
+*/
+
+
 //========= Cross browser event tracking with custom values ===========
 GAP.track.addListener(document.getElementById("btn-download-bottom"),'click',function(){
   GAP.track.event('buttons','download','v0.0.1','1');
@@ -49,27 +58,14 @@ $("[data-ga-category]").each(function(e){
                   'cat-name':'products',
                   'price':'19',
                   'quantity':'1'
-                },
-                {
-                  'id':'3',
-                  'code':'XX3',
-                  'name':'prod-name 2',
-                  'cat-name':'products',
-                  'price':'8',
-                  'quantity':'2'
                 }];
 
-    GAP.track.transaction('111','YLD','35','','','', items );
+    GAP.track.transaction(id,store_name,total,shipping,tax,currency, items );
 
 
 
 
-/****** Important: *******/
-/* Expected data attributes are:
-/* - data-ga-category (required)
-/* - data-ga-action (required) 
-/* - data-ga-label 
-/* - data-ga-value ******/
+
 
 ```
 
