@@ -11,9 +11,9 @@ It has javascript error tracking implemented and uses the information of window.
 
 Another cool thing is the way you can assign events to dom objects.
 For example, you can just pass the name of the event and the dom object as parameters to the GAP.track.element function if you are using data-attributes to store the content of the event params:
-
-&lt;a href="http://somewhere.com" data-ga-category="Event-cat" data-ga-action="my action" data-ga-label="some label" data-ga-value="1"&gt;my link!&lt;/a&gt;
-
+```html
+<a href="http://somewhere.com" data-ga-category="Event-cat" data-ga-action="my action" data-ga-label="some label" data-ga-value="1">my link!</a>
+```
 Also there the events are attached in a cross browser clean way so there is no need to include any external library to do this. GAP.track.addListener handles that for you
 
 Try out the working demo here : http://makeitsolutions.com/labs/GAP/
