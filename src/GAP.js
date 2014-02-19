@@ -2,6 +2,8 @@
 var GAP = GAP || {};
 
 GAP.track = (function() {
+    var _version = "classic"
+        , _debug = true;
 
     function _init(){
       if(typeof(ga)=="function"){
@@ -9,7 +11,6 @@ GAP.track = (function() {
         _version = "universal";
       }else{
         _gaq = _gaq || [];
-        _version = "classic";
       }
       _log("GA detected version: "+_version);
     }
@@ -28,9 +29,6 @@ GAP.track = (function() {
         });
       }
     }
-
-    _debug =  true;
-    
     
     function _addListener(element, type, callback) {
         if (element.addEventListener) element.addEventListener(type, callback);
